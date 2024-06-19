@@ -12,6 +12,13 @@
     - name: Get the PID
       shell: lsof -i :8082
       register: pid_output
+      tags:
+        - a
+    - name: print pid_output
+      debug:
+        var: pid_output
+      tags:
+        - b
 
     - name: Kill Running app
       shell: kill -9 {{ pid_output.stdout }}
