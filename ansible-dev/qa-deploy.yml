@@ -8,28 +8,21 @@
       file:
         path: /opt/qa/spg/*.jar
         state: absent
-
+    
     - name: Get the PID
-      shell: lsof -t -i :8082
+      shell:  lsof -t -i :8082
       register: pid_output
-      tags:
-        - a
-    - name: print pid_output
-      debug:
-        var: pid_output
-      tags:
-        - b
-
-    - name: Kill Running app
-      shell: kill -9 {{ pid_output.stdout }}
+    
+    - name: Kill Running App
+      shell: "kill -9 {{ pid_output.stdout }}"
       when: pid_output.stdout != ''
 
-    - name: Download New Artifact
+    - name: Download New Artifact  
       get_url:
         url: http://34.201.161.49:8081/artifactory/geolocation/geo/bio_17.jar
         dest: /opt/qa/spg
         url_username: admin
         url_password: password
 
-    - name: Run the app
+    - name: Run the App
       shell: nohup java -jar /opt/qa/spg/*.jar > /opt/qa/spg.log 2>&1 &
