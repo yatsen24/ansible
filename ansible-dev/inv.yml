@@ -4,9 +4,7 @@
 [db]
 172.31.19.55
 
-[wind]
 
-174.129.76.29
 
 [ws:vars]
 ansible_ssh_private_key_file=~/ansible-key.pem
